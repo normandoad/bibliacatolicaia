@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: bibliacatolicaia
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/santabibliacatolica}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+  ai:
+    retry:
+      backoff:
+        initial-interval: 2000
+        max-interval: 10000
+        multiplier: 4
+      max-attempts: 20
+    ollama:
+      embedding:
+        model: ${EMBEDDING_MODEL:mxbai-embed-large-tuned} 
+        options:
+          top-k: ${OLLAMA_EMBEDDING_TOP-K:10}
+          num-thread: ${EMBEDDINGS_NUM_THREAD:8}
+          num-ctx: 512
+          num-batch: 1024
+          top-p: ${OLLAMA_EMBEDDING_TOP-P:0.5}
+        enabled: true
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        model: ${CHAT_MODEL:mistral}
+        options:
+          num-ctx: ${CHAT_MODEL_CONTEXT_LENGTH:32768}
+          num-batch: 1024
+          num-thread: ${CHAT_NUM_THREAD:8}
+          top-k: ${CHAT_TOP-K:1}
+          top-p: ${CHAT_TOP-P:0.5}
+          temperature: ${CHAT_TEMPERATURE:0.5}
+    vectorstore:
+        pgvector:
+         index-type: ${VECTORSTORE_PGVECTOR_INDEX-TYPE:HNSW}
+         dimensions: ${VECTORSTORE_PGVECTOR_DIMENSIONS:1024}
+         distance-type: COSINE_DISTANCE
+
+database:
+  init: ${DATABASE_INIT:false}
+queries:
+  top-k: ${QUERIES_TOP-K:3}
