@@ -21,9 +21,7 @@ public class BibliaController {
 	private final VectorStore vectorStore;
 
 	private String prompt = """
-			Tu tarea es responder en español las preguntas sobre la Sagrada Biblia Católica. Usa la información de la sección DOCUMENTOS
-			para brindar respuestas precisas. Si no estás seguro o si la respuesta no se encuentra en la sección DOCUMENTOS,
-			simplemente indica que no sabes la respuesta.
+			Solo responde basado en el contexto proporcionado. Si no tienes información, di 'No sé'.
 
 			QUESTION:
 			{input}
@@ -40,7 +38,7 @@ public class BibliaController {
 
 	@GetMapping("/")
 	public String simplify(
-			@RequestParam(defaultValue = "Dime que dice \"El Evangelio Según San Juan, Capítulo 1 de versículo 1 al 3\"") String question) {
+			@RequestParam(defaultValue = "En el documento, continúa escribiendo desde donde dice \"Juan es llamado el águila\" hasta \"Él existía antes que yo.\" ") String question) {
 
 		PromptTemplate template = new PromptTemplate(prompt);
 		Map<String, Object> promptsParameters = new HashMap<>();

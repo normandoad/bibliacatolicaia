@@ -24,7 +24,7 @@ spring:
         enabled: true
       base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
       chat:
-        model: ${CHAT_MODEL:mistral}
+        model: ${CHAT_MODEL:biblia}
         options:
           num-ctx: ${CHAT_MODEL_CONTEXT_LENGTH:32768}
           num-batch: 1024
